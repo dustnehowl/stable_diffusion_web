@@ -5,11 +5,16 @@ const CustomDiv = styled.div`
     justify-content: center;
     margin: auto;
     padding-bottom: 200px;
+    h1 {
+        font-weight: 200;
+    }
 `
 
 const Img2img = () => {
     return (
-        <div>Hello, world!</div>
+        <CustomDiv>
+            <h1>Image to Image</h1>
+        </CustomDiv>
     );
 }
 
