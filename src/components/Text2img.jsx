@@ -1,26 +1,24 @@
 import styled from "styled-components";
+import {useForm} from 'react-hook-form';
 
 const CustomDiv = styled.div`
     width : 1024px;
-    justify-content: center;
     margin: auto;
+    h1 {
+        font-weight: 200;
+    }
 `
 
 const Text2img = () => {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = data => console.log(data);
     return (
         <CustomDiv>
-            <div>hi, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <div>Hello, world!</div>
-            <header>Hello, world!</header>
+            <h1>Text to Image</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("firstName")} />
+            <input type="submit" />
+            </form>
         </CustomDiv>
     );
 }
