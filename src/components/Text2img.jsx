@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from 'react'
 import {useForm} from 'react-hook-form';
+import axios from "axios";
 
 const NewStyle = styled.div`
     width : 1024px;
@@ -35,15 +36,21 @@ const NewStyle = styled.div`
 const Text2img = () => {
     const { register, handleSubmit } = useForm();
     const {img, setImg} = useState(null);
-    const onSubmit = data => {
-        alert(data.text);
+    const onSubmit = async (data) => {
+        alert(data);
+        const response = await axios({
+            method: "POST",
+            url : "/text2img",
+            data: data.text,
+        })
+        console.log(response);
     };
     return (
         <NewStyle>
             <h1>Text to Image</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("text")} />
-            <input type="submit" />
+            <input className="submitButton" type="submit" />
             </form>
         </NewStyle>
     );
