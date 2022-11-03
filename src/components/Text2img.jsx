@@ -31,19 +31,25 @@ const NewStyle = styled.div`
     .submitButton{
         background-color: #d2e7e8;
     }
+    .result_img{
+        width: 512px;
+    }
 `
 
 const Text2img = () => {
     const { register, handleSubmit } = useForm();
-    const {img, setImg} = useState(null);
+    const [img, setImg] = useState({
+        success: false,
+        img_url: "",
+    });
     const onSubmit = async (data) => {
-        alert(data);
         const response = await axios({
             method: "POST",
-            url : "/text2img",
+            url : "http://localhost:5000/text2img",
             data: data.text,
         })
-        console.log(response);
+        console.log(response.data);
+        setImg(response.data);
     };
     return (
         <NewStyle>
@@ -51,6 +57,7 @@ const Text2img = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("text")} />
             <input className="submitButton" type="submit" />
+            <img className="result_img" src={img.img_url} />
             </form>
         </NewStyle>
     );
