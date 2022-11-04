@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from 'react'
 import {useForm} from 'react-hook-form';
 import axios from "axios";
+import images from "./images/loading2.gif"
 
 const NewStyle = styled.div`
     width : 1024px;
@@ -40,9 +41,10 @@ const Text2img = () => {
     const { register, handleSubmit } = useForm();
     const [img, setImg] = useState({
         success: false,
-        img_url: "",
+        img_url: images,
     });
     const onSubmit = async (data) => {
+        console.log("버튼눌렸당");
         const response = await axios({
             method: "POST",
             url : "http://localhost:5000/text2img",
