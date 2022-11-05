@@ -35,6 +35,12 @@ const NewStyle = styled.div`
     .result_img{
         width: 512px;
     }
+
+    .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 const Text2img = () => {
@@ -56,10 +62,12 @@ const Text2img = () => {
     return (
         <NewStyle>
             <h1>Text to Image</h1>
+            <div className="center">
+                <img className="result_img" src={img.img_url} />
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("text")} />
             <input className="submitButton" type="submit" />
-            <img className="result_img" src={img.img_url} />
             </form>
         </NewStyle>
     );
