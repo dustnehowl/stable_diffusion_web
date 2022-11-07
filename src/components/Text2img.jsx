@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useState } from 'react'
 import {useForm} from 'react-hook-form';
 import axios from "axios";
-import images from "./images/loading2.gif"
+import images from "./images/loading-gif.gif"
+import welcome_img from "./images/loading2.gif"
 
 const NewStyle = styled.div`
     width : 1024px;
@@ -46,7 +47,7 @@ const NewStyle = styled.div`
 const Text2img = () => {
     const { register, handleSubmit } = useForm();
     const [img, setImg] = useState({
-        img_url: images,
+        img_url: welcome_img,
         success: false,
         translation: "",
     });

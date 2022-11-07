@@ -3,6 +3,8 @@ import {useForm} from 'react-hook-form';
 import React from 'react';
 import axios from "axios";
 import ImageUploading from 'react-images-uploading';
+import { useState } from 'react'
+import loading_img from "./images/loading-gif.gif"
 
 const CustomDiv = styled.div`
     width : 1024px;
@@ -56,6 +58,11 @@ const CustomDiv = styled.div`
 const Img2img = () => {
     const { register, handleSubmit } = useForm();
     const [images, setImages] = React.useState([]);
+    const [result_img, setImg] = useState({
+        img_url: "",
+        success: false,
+        translation: "",
+    });
     const maxNumber = 69;
 
     const onChange = (imageList, addUpdateIndex) => {
@@ -66,11 +73,32 @@ const Img2img = () => {
 
     const onSubmit = async (sm_data) => {
         console.log("버튼눌렸당");
+        setImg({
+            success: false,
+            img_url: loading_img,
+            translation: "",
+        });
+        console.log(images[0])
+        const formData = new FormData()
+        formData.append("file", images[0].file)
+        formData.append("fileName", "test.png")
+        formData.append("prompt", sm_data.text)
+        
         const response = await axios({
             method: "POST",
-            url : "http://localhost:5000/img2img",
-            data: sm_data.text,
+            url: "http://localhost:5000/img2img",
+            headers: {
+            "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
+            },
+            data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
         })
+        
+        setImg(response.data);
+        // const response = await axios({
+        //     method: "POST",
+        //     url : "http://localhost:5000/img2img",
+        //     data: sm_data.text,
+        // })
         console.log(response.data.translation);
     };
 
@@ -113,6 +141,7 @@ const Img2img = () => {
                     <input {...register("text")} />
                     <input className="submitButton" type="submit" />
                     </form>
+                    <img className="result_img" src={result_img.img_url} />
                 </div>
                     
                 :
