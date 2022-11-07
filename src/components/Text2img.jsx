@@ -25,8 +25,8 @@ const NewStyle = styled.div`
     }
     input{
         margin: 4px;
-        border : 1px solid #d9d9d9;
-        border-radius: 2px;
+        border : .2px solid #d9d9d9;
+        border-radius: 5px;
         padding: 10px
     }
     .submitButton{
