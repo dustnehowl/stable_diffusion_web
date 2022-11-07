@@ -46,11 +46,17 @@ const NewStyle = styled.div`
 const Text2img = () => {
     const { register, handleSubmit } = useForm();
     const [img, setImg] = useState({
-        success: false,
         img_url: images,
+        success: false,
+        translation: "",
     });
     const onSubmit = async (data) => {
         console.log("버튼눌렸당");
+        setImg({
+            success: false,
+            img_url: images,
+            translation: "",
+        });
         const response = await axios({
             method: "POST",
             url : "http://localhost:5000/text2img",
@@ -58,6 +64,7 @@ const Text2img = () => {
         })
         console.log(response.data);
         setImg(response.data);
+        console.log(img)
     };
     return (
         <NewStyle>

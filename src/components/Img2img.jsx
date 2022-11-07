@@ -22,15 +22,15 @@ const CustomDiv = styled.div`
 
 const Img2img = () => {
     const [images, setImages] = React.useState([]);
-  const maxNumber = 69;
+    const maxNumber = 69;
 
-  const onChange = (imageList, addUpdateIndex) => {
+    const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
-  };
+    };
 
-  return (
+    return (
     <CustomDiv>
         <h1>Image to Image</h1>
         <div className="App">
@@ -52,30 +52,32 @@ const Img2img = () => {
             }) => (
             // write your building UI
             <div className="upload__image-wrapper">
-                <button className="upload_button"
-                style={isDragging ? { color: 'red' } : undefined}
-                onClick={onImageUpload}
-                {...dragProps}
-                >
-                Upload Image
-                </button>
-                &nbsp;
-                <button onClick={onImageRemoveAll}>Remove all images</button>
-                {imageList.map((image, index) => (
-                <div key={index} className="image-item">
-                    <img src={image['data_url']} alt="" width="100" />
-                    <div className="image-item__btn-wrapper">
-                    <button onClick={() => onImageUpdate(index)}>Update</button>
-                    <button onClick={() => onImageRemove(index)}>Remove</button>
-                    </div>
-                </div>
-                ))}
+                {imageList.length ? 
+                    imageList.map((image, index) => (
+                        <div key={index} className="image-item">
+                            <img src={image['data_url']} alt="" width="512" />
+                            <div className="image-item__btn-wrapper">
+                            <button onClick={() => onImageUpdate(index)}>Update</button>
+                            <button onClick={() => onImageRemove(index)}>Remove</button>
+                            </div>
+                        </div>
+                    ))
+                    
+                :
+                    <button className="upload_button" 
+                    style={isDragging ? { color: 'red' } : undefined}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                    >
+                    Upload Image
+                    </button>
+                }
             </div>
             )}
         </ImageUploading>
         </div>
     </CustomDiv>
-  );
+    );
 }
 
 export default Img2img;
